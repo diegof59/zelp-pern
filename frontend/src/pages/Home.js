@@ -1,5 +1,6 @@
 import React from 'react'
-import { Container, FormControl, Form, Button } from 'react-bootstrap'
+import Header from '../components/Header'
+import SearchForm from '../components/SearchForm'
 
 function Home(props){
 
@@ -10,13 +11,14 @@ function Home(props){
     setSearchTerm(event.target.value)
   }
 
-  const handleSearch = () => {
+  const handleSearch = (event) => {
+    event.preventDefault()
     console.log('search')
   }
 
   return(
-    <Container>
-      <h1 className="title text-center my-4">Zelp</h1>
+    <>
+      <Header />
       <SearchForm
         searchTerm={searchTerm}
         handleChange={handleSearchInput}
@@ -24,40 +26,8 @@ function Home(props){
       >
         Search Restaurant
       </SearchForm>
-    </Container>
+    </>
   )
 }
-
-const SearchForm = ({searchTerm, handleChange, handleSearch, children}) => (
-  <Form onSubmit={handleSearch}>
-    <LabeledInput
-      id="search"
-      placeholder="Search a Restaurant"
-      value={searchTerm}
-      handler={handleChange}
-    >
-      {children}
-    </LabeledInput>
-    <Button
-      variant="primary"
-      type="submit"
-    >
-      Go
-    </Button>
-  </Form>
-)
-
-const LabeledInput = ({id, type="text", placeholder="", value, handleChange, children}) => (
-  <>
-    <Form.Label htmlFor={id} className="label" srOnly>{children}</Form.Label>
-    <FormControl
-      id={id}
-      placeholder={placeholder}
-      type={type}
-      value={value}
-      onChange={handleChange}
-    />
-  </>
-)
 
 export default Home
